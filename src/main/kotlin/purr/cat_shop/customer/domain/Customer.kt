@@ -50,15 +50,4 @@ class Customer {
     @OneToMany(mappedBy = "customer")
     var orders: MutableSet<Order>? = null
 
-    @CreatedDate
-    @Column(
-        nullable = false,
-        updatable = false
-    )
-    var dateCreated: OffsetDateTime? = null
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    var lastUpdated: OffsetDateTime? = null
-
 }

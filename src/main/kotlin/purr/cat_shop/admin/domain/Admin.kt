@@ -45,15 +45,4 @@ class Admin {
     )
     var member: Member? = null
 
-    @CreatedDate
-    @Column(
-        nullable = false,
-        updatable = false
-    )
-    var dateCreated: OffsetDateTime? = null
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    var lastUpdated: OffsetDateTime? = null
-
 }

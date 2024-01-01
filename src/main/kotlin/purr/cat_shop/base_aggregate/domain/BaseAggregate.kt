@@ -34,10 +34,10 @@ abstract class BaseAggregate {
         nullable = false,
         updatable = false
     )
-    var dateCreated: OffsetDateTime? = null
+    var createdDate: OffsetDateTime? = null
 
     @LastModifiedDate
     @Column(nullable = false)
-    var lastUpdated: OffsetDateTime? = null
+    var updatedDate: OffsetDateTime? = null
 
 }
