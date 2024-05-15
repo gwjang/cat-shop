@@ -1,4 +1,10 @@
 spring:
+  flyway:
+    enabled: false
+    locations: classpath:/db/migration # migration 파일들이 위치하는 directory
+    sql-migration-suffixes: sql        # 파일 확장자
+    baseline-on-migrate: true          # flyway_schema_history 테이블을 자동으로 생성할지 여부
+    baseline-version: 0
   r2dbc:
     url: ${R2DBC_DATABASE_URL:r2dbc:postgresql://localhost:5432/cat-shop}
     username: ${R2DBC_DATABASE_USERNAME:postgres}

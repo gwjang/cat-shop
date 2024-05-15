@@ -4,6 +4,7 @@ import org.springframework.boot.gradle.tasks.run.BootRun
 plugins {
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
+    id("org.flywaydb.flyway") version "10.13.0"
     kotlin("kapt") version "1.9.21"
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
@@ -35,6 +36,15 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     implementation("org.hibernate:hibernate-envers:6.2.3.Final")
+    implementation("org.flywaydb:flyway-core")
+}
+
+val dbHost = System.getenv("DB_HOST") ?: "localhost"
+
+flyway {
+    url = "jdbc:postgresql://$dbHost:5432/cat-shop"
+    user = System.getenv("DB_USERNAME")
+    password = System.getenv("DB_PASSWORD")
 }
 
 allOpen {
