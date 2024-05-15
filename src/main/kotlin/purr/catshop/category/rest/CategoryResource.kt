@@ -34,7 +34,7 @@ class CategoryResource(
     @GetMapping("/{id}")
     fun getCategory(
         @PathVariable(name = "id") id: UUID,
-    ): ResponseEntity<Mono<CategoryDTO>> = ResponseEntity.ok(categoryService.get(id).map { it.toDTO() })
+    ): ResponseEntity<Mono<CategoryDTO>> = ResponseEntity.ok(categoryService.findOne(id).map { it.toDTO() })
 
     @PostMapping
     @ApiResponse(responseCode = "201")

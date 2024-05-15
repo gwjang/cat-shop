@@ -18,7 +18,7 @@ class MemberService(
         return memberRepository.findAll(Sort.by("id"))
     }
 
-    fun `get`(id: UUID): Mono<Member> = memberRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException()))
+    fun findOne(id: UUID): Mono<Member> = memberRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException()))
 
     fun create(memberDTO: MemberDTO): Mono<Member> {
         val member =

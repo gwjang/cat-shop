@@ -34,7 +34,7 @@ class MemberResource(
     @GetMapping("/{id}")
     fun getMember(
         @PathVariable(name = "id") id: UUID,
-    ): ResponseEntity<Mono<MemberDTO>> = ResponseEntity.ok(memberService.get(id).map { it.toDTO() })
+    ): ResponseEntity<Mono<MemberDTO>> = ResponseEntity.ok(memberService.findOne(id).map { it.toDTO() })
 
     @PostMapping
     @ApiResponse(responseCode = "201")

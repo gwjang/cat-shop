@@ -18,7 +18,8 @@ class CategoryService(
         return categoryRepository.findAll(Sort.by("id"))
     }
 
-    fun `get`(id: UUID): Mono<Category> = categoryRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException("Category not found")))
+    fun findOne(id: UUID): Mono<Category> =
+        categoryRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException("Category not found")))
 
     fun create(categoryDTO: CategoryDTO): Mono<Category> {
         val category = Category.create(categoryDTO.name)
