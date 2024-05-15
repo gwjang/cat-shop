@@ -9,7 +9,7 @@ import java.time.OffsetDateTime
 import java.util.Optional
 
 @Configuration
-@EntityScan("purr.cat_shop")
+@EntityScan("purr.catshop")
 @EnableTransactionManagement
 class DomainConfig {
     @Bean(name = ["auditingDateTimeProvider"])

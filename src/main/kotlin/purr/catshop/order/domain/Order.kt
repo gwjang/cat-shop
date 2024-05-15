@@ -6,6 +6,7 @@ import purr.catshop.baseaggregate.domain.BaseAggregate
 import purr.catshop.customer.domain.Customer
 import purr.catshop.delivery.domain.Delivery
 import purr.catshop.order.model.OrderDTO
+import purr.catshop.product.domain.Product
 
 @Table(name = "order")
 class Order(
@@ -16,7 +17,8 @@ class Order(
     var status: String,
     @Transient
     var customer: Customer,
-//    var goods: MutableSet<Good>? = null,
+    @Transient
+    var products: MutableSet<Product>? = null,
     @Transient
     var delivery: Delivery? = null,
 ) : BaseAggregate() {
