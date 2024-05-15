@@ -8,7 +8,6 @@ import purr.catshop.member.repos.MemberRepository
 import purr.catshop.util.NotFoundException
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.UUID
 
 @Service
 class MemberService(
@@ -18,7 +17,7 @@ class MemberService(
         return memberRepository.findAll(Sort.by("id"))
     }
 
-    fun findOne(id: UUID): Mono<Member> = memberRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException()))
+    fun findOne(id: Long): Mono<Member> = memberRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException()))
 
     fun create(memberDTO: MemberDTO): Mono<Member> {
         val member =
@@ -31,7 +30,7 @@ class MemberService(
     }
 
     fun update(
-        id: UUID,
+        id: Long,
         memberDTO: MemberDTO,
     ): Mono<Member> {
         return memberRepository.findById(id)
@@ -44,7 +43,7 @@ class MemberService(
             }
     }
 
-    fun delete(id: UUID): Mono<Void> {
+    fun delete(id: Long): Mono<Void> {
         return memberRepository.deleteById(id)
     }
 

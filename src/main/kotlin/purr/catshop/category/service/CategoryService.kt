@@ -8,7 +8,6 @@ import purr.catshop.category.repos.CategoryRepository
 import purr.catshop.util.NotFoundException
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.UUID
 
 @Service
 class CategoryService(
@@ -18,7 +17,7 @@ class CategoryService(
         return categoryRepository.findAll(Sort.by("id"))
     }
 
-    fun findOne(id: UUID): Mono<Category> =
+    fun findOne(id: Long): Mono<Category> =
         categoryRepository.findById(id).switchIfEmpty(Mono.error(NotFoundException("Category not found")))
 
     fun create(categoryDTO: CategoryDTO): Mono<Category> {
@@ -27,7 +26,7 @@ class CategoryService(
     }
 
     fun update(
-        id: UUID,
+        id: Long,
         categoryDTO: CategoryDTO,
     ): Mono<Category> {
         return categoryRepository.findById(id)
@@ -38,7 +37,7 @@ class CategoryService(
             }
     }
 
-    fun delete(id: UUID): Mono<Void> {
+    fun delete(id: Long): Mono<Void> {
         return categoryRepository.deleteById(id)
     }
 }

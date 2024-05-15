@@ -1,4 +1,4 @@
-package purr.catshop.member.rest
+package purr.catshop.order.rest
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
@@ -13,52 +13,52 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import purr.catshop.member.model.MemberDTO
-import purr.catshop.member.service.MemberService
+import purr.catshop.order.model.OrderDTO
+import purr.catshop.order.service.OrderService
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.lang.Void
 
 @RestController
 @RequestMapping(
-    value = ["/api/members"],
+    value = ["/api/orders"],
     produces = [MediaType.APPLICATION_JSON_VALUE],
 )
-class MemberResource(
-    private val memberService: MemberService,
+class OrderResource(
+    private val orderService: OrderService,
 ) {
     @GetMapping
-    fun getAllMembers(): ResponseEntity<Flux<MemberDTO>> = ResponseEntity.ok(memberService.findAll().map { it.toDTO() })
+    fun getAllOrders(): ResponseEntity<Flux<OrderDTO>> = ResponseEntity.ok(orderService.findAll().map { it.toDTO() })
 
     @GetMapping("/{id}")
-    fun getMember(
+    fun getOrder(
         @PathVariable(name = "id") id: Long,
-    ): ResponseEntity<Mono<MemberDTO>> = ResponseEntity.ok(memberService.findOne(id).map { it.toDTO() })
+    ): ResponseEntity<Mono<OrderDTO>> = ResponseEntity.ok(orderService.findOne(id).map { it.toDTO() })
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    fun createMember(
-        @RequestBody @Valid memberDTO: MemberDTO,
-    ): ResponseEntity<Mono<MemberDTO>> {
-        val createdId = memberService.create(memberDTO)
-        return ResponseEntity(createdId.map { it.toDTO() }, HttpStatus.CREATED)
+    fun createOrder(
+        @RequestBody @Valid orderDTO: OrderDTO,
+    ): ResponseEntity<Mono<OrderDTO>> {
+        val order = orderService.create(orderDTO)
+        return ResponseEntity(order.map { it.toDTO() }, HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")
-    fun updateMember(
+    fun updateOrder(
         @PathVariable(name = "id") id: Long,
-        @RequestBody @Valid memberDTO: MemberDTO,
-    ): ResponseEntity<Mono<MemberDTO>> {
-        val member = memberService.update(id, memberDTO)
-        return ResponseEntity.ok(member.map { it.toDTO() })
+        @RequestBody @Valid orderDTO: OrderDTO,
+    ): ResponseEntity<Mono<OrderDTO>> {
+        val order = orderService.update(id, orderDTO)
+        return ResponseEntity.ok(order.map { it.toDTO() })
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    fun deleteMember(
+    fun deleteOrder(
         @PathVariable(name = "id") id: Long,
     ): Mono<ResponseEntity<Void>> {
-        return memberService.delete(id)
+        return orderService.delete(id)
             .then(Mono.fromCallable { ResponseEntity.noContent().build() })
     }
 }

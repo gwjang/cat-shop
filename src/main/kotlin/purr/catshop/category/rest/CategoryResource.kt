@@ -18,7 +18,6 @@ import purr.catshop.category.service.CategoryService
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.lang.Void
-import java.util.UUID
 
 @RestController
 @RequestMapping(
@@ -33,7 +32,7 @@ class CategoryResource(
 
     @GetMapping("/{id}")
     fun getCategory(
-        @PathVariable(name = "id") id: UUID,
+        @PathVariable(name = "id") id: Long,
     ): ResponseEntity<Mono<CategoryDTO>> = ResponseEntity.ok(categoryService.findOne(id).map { it.toDTO() })
 
     @PostMapping
@@ -47,7 +46,7 @@ class CategoryResource(
 
     @PutMapping("/{id}")
     fun updateCategory(
-        @PathVariable(name = "id") id: UUID,
+        @PathVariable(name = "id") id: Long,
         @RequestBody @Valid
         categoryDTO: CategoryDTO,
     ): ResponseEntity<Mono<CategoryDTO>> {
@@ -58,7 +57,7 @@ class CategoryResource(
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     fun deleteCategory(
-        @PathVariable(name = "id") id: UUID,
+        @PathVariable(name = "id") id: Long,
     ): Mono<ResponseEntity<Void>> {
         return categoryService.delete(id)
             .then(Mono.fromCallable { ResponseEntity.noContent().build() })
